@@ -1,0 +1,142 @@
+* {
+  font-family: 'Jockey One', sans-serif;
+}
+
+.App {
+  margin: 0 auto;
+  text-align: center;
+  /* max-width: 375px; */
+  max-height: 100vh;
+}
+
+.container {
+  min-height: 100vh;
+  max-width: 100vw;
+}
+
+
+.container>* {
+  /* background-color: rgb(223, 236, 247); */
+  background-color: white;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+.fa-3x {
+  color: black;
+}
+
+/* Sign In Page */
+
+/* Typography */
+
+.home-header {
+  font-size: 2.8rem;
+}
+
+/* Form */
+
+.form-control {
+  width: 80%;
+  border-radius: 1rem;
+  background-color: rgb(204, 204, 204);
+  color: black;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+}
+
+.btn {
+  color: black;
+  width: 80%;
+  border-radius: 1rem;
+}
+
+/*  footer */
+.social-links {
+  border: 3px black solid;
+  height: 10vh;
+  padding: 5px;
+  background-color: aliceblue;
+}
+
+.github {
+  background-image: url('./images/github-mark.png');
+  width: 100%;
+  height: 100%;
+}
+
+/* Profile Card */
+
+.profile, .profile-card {
+  position: absolute;
+  background-color: #fff;
+  width: 80vw;
+  right: 0;
+  left: 0;
+  margin:  auto;
+  /* max-width: 260px; */
+  height: 60%;
+  border: 5px solid;
+  border-radius: 20px;
+  position: absolute;
+  background-size: cover;
+  background-position: center;
+}
+.profile-card {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  justify-content: space-around;
+}
+
+.card h3 {
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  margin: 10px;
+  color: #fff;
+  display: flex;
+}
+
+.card button {
+  margin: 10px;
+  color: #fff;
+}
+
+.btns {
+  position: relative;
+  bottom: -80px;
+  padding: 1rem;
+  width: 100%;
+  justify-content: space-around;
+}
+.btns > i {
+  border-radius: 50%;
+}
+
+.btns > .fa-heart:active {
+  background-color: rgb(158, 243, 158);
+}
+
+.btns > .fa-circle-xmark:active {
+  background-color: rgb(255, 145, 145);
+  color: white;
+}
+
+div.messages {
+  /* padding:5px; */
+  width: 100%;
+  height: 70vh;
+  overflow: auto;
+  text-align:justify;
+}
+
+.img {
+  background-size: cover;
+  background-position: center;
+  margin-right: 1rem;
+}
