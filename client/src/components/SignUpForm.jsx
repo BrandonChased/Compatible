@@ -16,7 +16,7 @@ function SignUpForm() {
             <button className='btn btn-primary' >Sign Up</button>
             <div className='mt-4'>
                 <p className='h4' style={{ color: "black" }} >  Already Have an Account ?</p>
-                <Link className='h4' to={"/signIn"}>Sign In Here! </Link>
+                <Link cla ssName='h4' to={"/signIn"}>Sign In Here! </Link>
             </div>
         </form>
     )

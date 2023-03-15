@@ -5,54 +5,52 @@ const bcrypt = require('bcrypt');
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, "First name is required"]
+        required: true,
+        minlength: 3,
+        maxlength: 50,
     },
     email: {
         type: String,
-        required: [true, "Email is required"]
+        required: true,
+        unique: true,
+        lowercase: true,
+        trim: true,
+        validate: {
+            validator: (v) => {
+                // Basic email validation regex
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+            },
+            message: (props) => `${props.value} is not a valid email address!`,
+        },
     },
     password: {
         type: String,
-        required: [true, "Password is required"],
-        minlength: [8, "Password must be 8 characters or longer"]
+        required: true,
+        minlength: 6,
     },
     age: {
         type: Number,
-        require: [true, "Age is required"]
+        required: false,
+        min: 18,
+        max: 120,
     },
     gender: {
         type: String,
-        required: [true, "Please enter your gender"]
+        required: false,
+        enum: ['male', 'female'],
     },
-    genderPreference: {
-        type: String,
-        required: [true, "Please enter your gender preference"]
+    genderPreferences: {
+        type: [String],
+        required: false,
+        enum: ['male', 'female'],
     },
-    url: {
-        type: String,
-        required: [true, "Please submit a picture"]
+    images: {
+        type: [String],
+        required: false,
     },
-    matches: {
-        type: Array
-    }
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    matches: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 }, { timestamps: true });
-
-UserSchema.pre('save', function (next) {
-    bcrypt.hash(this.password, 10)
-        .then(hash => {
-            this.password = hash;
-            next();
-        });
-});
-
-// UserSchema.methods.generateAuthToken = function () {
-//     const token = jwt.sign({_id: this.id}, process.env.JWTPRIVATEKEY,{expiresIn: "7d"})
-//     return token
-// }
-
-// UserSchema.virtual('confirmPassword')
-//     .get(() => this._confirmPassword)
-//     .set(value => this._confirmPassword = value);
 
 const User = mongoose.model('Users', UserSchema)
 module.exports = User

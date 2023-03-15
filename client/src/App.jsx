@@ -14,13 +14,13 @@ function App() {
     <div className="App" style={{minHeight: "100vh"}}>
       <Routes>
         <Route path='/' element={<SignUp />} />
-        <Route path='/SignIn' element={<SignIn />} />
-        <Route path='/Dashboard' element={<Dashboard />} />
-        <Route path='/OnBoarding' element={<OnBoarding />}/>
-        <Route path='/Likes' element={<Likes />}/>
-        <Route path='/Messages' element={<Messages />}/>
-        <Route path='/Profile' element={<Profile />} />
-        <Route path='/Settings' element={<Setting />}/>
+        <Route path='/signIn' element={<SignIn />} />
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/onboarding' element={<OnBoarding />}/>
+        <Route path='/likes' element={<Likes />}/>
+        <Route path='/messages' element={<Messages />}/>
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/settings' element={<Setting />}/>
       </Routes>
     </div>
   );

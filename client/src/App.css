@@ -138,5 +138,34 @@ div.messages {
 .img {
   background-size: cover;
   background-position: center;
-  margin-right: 1rem;
+  margin-right: rem;
+}
+
+.input-wrapper {
+  position: relative;
+  height: 100px;
+  width: 100px
+}
+
+input[type="file"] {
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.file-label {
+  display: inline-block;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 32px;
+  cursor: pointer;
+  height: fit-content;
+  width: fit-content;
+  margin-bottom: 0;
 }
