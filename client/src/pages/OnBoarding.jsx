@@ -78,7 +78,10 @@ function OnBoarding() {
         setImages(newImages);
     };
 
-    console.log(images)
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        fetch()
+    }
 
     return (
         <div className='container'>
