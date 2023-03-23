@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useCookies } from "react-cookie"
+import axios from 'axios'
 const github = require("../images/github-mark.png")
 const linkedIn = require("../images/LI-In-Bug.png")
 
@@ -10,7 +12,9 @@ function SignIn() {
         email: "",
         password: "",
     });
-
+    const [cookies, setCookie, removeCookie] = useCookies(['user']);
+    const navigate = useNavigate();
+    const [errors, setErrors] = useState({});
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUser((prevState) => ({
@@ -19,9 +23,47 @@ function SignIn() {
         }));
     };
 
+    const validateForm = (values) => {
+        let errors = {};
+        if (!values.email) {
+            errors.email = "Email is required";
+        } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+            errors.email = "Invalid email address";
+        }
+        if (!values.password) {
+            errors.password = "Password is required";
+        }
+        return errors;
+    };
+
     const handleSubmit = (e) => {
-        e.preDefault();
-        console.log(user);
+        e.preventDefault();
+        const validationErrors = validateForm(user);
+        if (Object.keys(validationErrors).length === 0) {
+            axios.post("http://localhost:8000/api/users/login", {
+                email: user.email,
+                password: user.password,
+            }, {
+                headers: {
+                    'Access-Control-Allow-Origin': 'http://localhost:3000'
+                }
+            })
+                .then(res => {
+                    console.log(res.data)
+                    setCookie("email", res.data.email)
+                    setCookie("UserId", res.data.userId)
+                    setCookie("AuthToken", res.data.token)
+                    setUser({})
+                    navigate("/dashboard")
+                })
+                .catch(err => {
+                    setErrors(err.response.data.error)
+                    console.log(err)
+                })
+        } else {
+            setErrors(validationErrors);
+            console.log(validationErrors)
+        }
     };
 
     return (

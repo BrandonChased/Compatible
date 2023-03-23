@@ -1,12 +1,16 @@
 const express = require("express");
 const UserRouter = express.Router();
 
-const { addMatch,create, findOne, findAll, updateOne, deleteOne } = require("../controllers/userControllers")
+const { addMatch, create, findOne, findAll, login, updateOne, deleteOne } = require("../controllers/userControllers")
 
 UserRouter
     .route('/')
     .get(findAll)
     .post(create);
+
+UserRouter
+    .route('/login')
+    .post(login)
 
 UserRouter
     .route("/:id")

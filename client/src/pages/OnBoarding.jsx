@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import '../App.css';
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
 function OnBoarding() {
     const [user, setUser] = useState({
@@ -10,6 +13,9 @@ function OnBoarding() {
     });
     const [genderSelected, setGenderSelected] = useState(true);
     const [genderPreferenceSelected, setGenderPreferenceSelected] = useState(true);
+    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+    const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
 
     const handleGenderSelected = (e) => {
         const { name, value } = e.target;
@@ -66,7 +72,7 @@ function OnBoarding() {
             setUser(prev => {
                 return {
                     ...prev,
-                
+
                 }
             })
         };
@@ -78,10 +84,54 @@ function OnBoarding() {
         setImages(newImages);
     };
 
+    const validateForm = (values) => {
+        let errors = {};
+        if (!values.name) {
+            errors.name = "Name is required";
+        }
+        if (!values.email) {
+            errors.email = "Email is required";
+        } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+            errors.email = "Invalid email address";
+        }
+        if (!values.password) {
+            errors.password = "Password is required";
+        } else if (values.password.length < 6) {
+            errors.password = "Password must be at least 6 characters long";
+        }
+        return errors
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch()
-    }
+        const validationErrors = validateForm(user);
+        if (Object.keys(validationErrors).length === 0) {
+            axios.post("http://localhost:8000/api/users", {
+                headers: {
+                    'Access-Control-Allow-Origin': 'http://localhost:8000'
+                },
+                name: user.name,
+                email: user.email,
+                password: user.password,
+                age: user.age,
+                gender: user.gender,
+                genderPreference: user.genderPreference,
+                url: user.url,
+            })
+                .then(res => {
+                    console.log(res.data)
+                    setCookie("UserId", res.data._id)
+                    setUser({})
+                    navigate("/dashboard")
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        } else {
+            setErrors(validationErrors);
+            console.log(validationErrors)
+        }
+    };
 
     return (
         <div className='container'>
@@ -91,7 +141,7 @@ function OnBoarding() {
                 <p className='text-grey'>
                     We need a little more information about you to help you connect with others
                 </p>
-                <form className='d-flex flex-column'>
+                <form className='d-flex flex-column' onSubmit={handleSubmit}>
                     <div className='form-group'>
                         <div className='d-flex justify-content-between align-items-center' style={{ maxWidth: "100%", flexWrap: "wrap" }}>
                             {[0, 1, 2, 3, 4, 5].map((index) => {
@@ -103,7 +153,6 @@ function OnBoarding() {
                                     :
                                     <div className={`input-wrapper d-flex justify-content-center ${index > 2 && window.screen.width < 459 ? "mb-0" : "mb-4"}`} style={{ width: "100px" }} key={index}>
                                         <div>
-
                                             <input type="file" id={`fileInput${index}`} name={`myFile${index}`} onChange={(event) => handleImageUpload(event, index)} />
                                             <label htmlFor={`myFile${index}`} className="file-label btn btn-light d-flex justify-content-center align-items-center">
                                                 <i className="fa-solid fa-photo-film border-dark"></i>
@@ -116,7 +165,11 @@ function OnBoarding() {
                         </div>
                     </div>
                     <div className='form-group'>
-                        <label htmlFor='birthdate' className='text-left d-flex w-100'>Birthdate</label>
+                        <label htmlFor='name' className='text-left d-flex w-100 m-0'>First Name</label>
+                        <input onChange={handleChange} type="text" className='form-control' name='name' />
+                    </div>
+                    <div className='form-group'>
+                        <label htmlFor='birthdate' className='text-left d-flex w-100 m-0'>Birthdate</label>
                         <input onChange={handleChange} type="date" className='form-control px-4' name='birthdate' />
                     </div>
                     <div className='form-group'>
