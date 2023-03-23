@@ -2,7 +2,10 @@
   <h1>Welcome to Compatible</h1>
   <hr />
   <p>
-   A Dating Application, built using Javascript, React, Bcrypt, React-Hooks, Mongoose, MongoDb, and Bootstrap
+  <strong>
+     A Dating Application, built using Javascript, React, Bcrypt, React-Hooks, Mongoose, MongoDb, and Bootstrap
+  </strong>
+
 
   -Developed a full-stack dating app with React for the front-end and MongoDB for the back-end, resulting in a visually appealing UI with a flexible and scalable database capable of handling complex user data.
 
