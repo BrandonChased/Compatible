@@ -5,21 +5,22 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 
 function OnBoarding() {
+    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
     const [user, setUser] = useState({
+        _id: cookies.UserId,
+        name: "",
         birthdate: "",
-        gender: "male",
-        genderPreference: "male",
-        image: ""
+        gender: "Man",
+        genderPreference: "Men",
+        images: []
     });
     const [genderSelected, setGenderSelected] = useState(true);
     const [genderPreferenceSelected, setGenderPreferenceSelected] = useState(true);
-    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
 
     const handleGenderSelected = (e) => {
         const { name, value } = e.target;
-        console.log(value)
         if (value === "Man") {
             setGenderSelected(true)
         } else if (value === "Woman") {
@@ -36,9 +37,9 @@ function OnBoarding() {
     const handleGenderPreferenceSelected = (e) => {
         const { name, value } = e.target;
         console.log(value)
-        if (value === "Man") {
+        if (value === "Men") {
             setGenderPreferenceSelected(true)
-        } else if (value === "Woman") {
+        } else if (value === "Women") {
             setGenderPreferenceSelected(false)
         }
         setUser(prev => {
@@ -89,16 +90,6 @@ function OnBoarding() {
         if (!values.name) {
             errors.name = "Name is required";
         }
-        if (!values.email) {
-            errors.email = "Email is required";
-        } else if (!/\S+@\S+\.\S+/.test(values.email)) {
-            errors.email = "Invalid email address";
-        }
-        if (!values.password) {
-            errors.password = "Password is required";
-        } else if (values.password.length < 6) {
-            errors.password = "Password must be at least 6 characters long";
-        }
         return errors
     };
 
@@ -106,21 +97,21 @@ function OnBoarding() {
         e.preventDefault();
         const validationErrors = validateForm(user);
         if (Object.keys(validationErrors).length === 0) {
-            axios.post("http://localhost:8000/api/users", {
+            axios.put("http://localhost:8000/api/users", {
                 headers: {
                     'Access-Control-Allow-Origin': 'http://localhost:8000'
                 },
+                id: user._id,
                 name: user.name,
-                email: user.email,
-                password: user.password,
                 age: user.age,
                 gender: user.gender,
                 genderPreference: user.genderPreference,
-                url: user.url,
+                images: images
             })
                 .then(res => {
                     console.log(res.data)
                     setCookie("UserId", res.data._id)
+                    setCookie("genderPreference", res.data.genderPreference)
                     setUser({})
                     navigate("/dashboard")
                 })
@@ -146,14 +137,14 @@ function OnBoarding() {
                         <div className='d-flex justify-content-between align-items-center' style={{ maxWidth: "100%", flexWrap: "wrap" }}>
                             {[0, 1, 2, 3, 4, 5].map((index) => {
                                 return (images[index] ?
-                                    <div className={index > 2 && window.screen.width < 459 ? "mb-0" : "mb-4"} key={index} style={{ overflow: "hidden", position: "relative" }}>
+                                    <div className={index > 2 && window.screen.width < 459 ? "mb-0" : "mb-2"} key={index} style={{ overflow: "hidden", position: "relative" }}>
                                         <img className=' border border-dark' style={{ borderRadius: "4px", height: "100px", width: "100px" }} alt="images" src={images[index]} />
                                         <i className="fa-solid fa-circle-xmark" style={{ position: "absolute", bottom: 0, right: 0, color: "black", cursor: "pointer" }} onClick={() => handleDelete(index)}></i>
                                     </div>
                                     :
                                     <div className={`input-wrapper d-flex justify-content-center ${index > 2 && window.screen.width < 459 ? "mb-0" : "mb-4"}`} style={{ width: "100px" }} key={index}>
                                         <div>
-                                            <input type="file" id={`fileInput${index}`} name={`myFile${index}`} onChange={(event) => handleImageUpload(event, index)} />
+                                            <input type="file" id={`fileInput${index}`} name={`myFile${index}`} onChange={(event) => { handleImageUpload(event, index) }} />
                                             <label htmlFor={`myFile${index}`} className="file-label btn btn-light d-flex justify-content-center align-items-center">
                                                 <i className="fa-solid fa-photo-film border-dark"></i>
                                                 <i className="fa-solid fa-circle-plus mt-3"></i>
@@ -182,8 +173,8 @@ function OnBoarding() {
                     <div className='form-group'>
                         <label className='text-left d-flex'>I interested in ...</label>
                         <div className='d-flex justify-content-around'>
-                            <input readOnly onClick={handleGenderPreferenceSelected} className={`btn form-control text-center ${genderPreferenceSelected ? "btn-primary" : "btn-light"}`} style={{ width: "35%" }} name="genderPreference" value="Man" />
-                            <input readOnly onClick={handleGenderPreferenceSelected} className={`btn form-control text-center ${genderPreferenceSelected ? "btn-light" : "btn-primary"}`} style={{ width: "35%" }} name="genderPreference" value="Woman" />
+                            <input readOnly onClick={handleGenderPreferenceSelected} className={`btn form-control text-center ${genderPreferenceSelected ? "btn-primary" : "btn-light"}`} style={{ width: "35%" }} name="genderPreference" value="Men" />
+                            <input readOnly onClick={handleGenderPreferenceSelected} className={`btn form-control text-center ${genderPreferenceSelected ? "btn-light" : "btn-primary"}`} style={{ width: "35%" }} name="genderPreference" value="Women" />
                         </div>
                     </div>
                     <button className='btn btn-primary w-50' style={{ margin: "0 auto" }}>Create my profile</button>

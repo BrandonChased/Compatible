@@ -5,7 +5,7 @@ import Nav from '../components/Nav'
 function Messages() {
     const db = [
         {
-            name: 'Richard Hendricks',
+            name: 'Richard',
             url: 'https://imgur.com/oPj4A8u.jpg'
         },
         {
@@ -52,7 +52,7 @@ function Messages() {
 
     return (
         <div className='d-flex flex-column justify-content-between' style={{ minHeight: "100vh" }}>
-            <Nav noFilter={true}/>
+            <Nav noFilter={true} />
             <p className='text-left ml-2 h4'>Potential Partners</p>
             <div className='overflow-auto messages' >
                 {
@@ -62,7 +62,7 @@ function Messages() {
                                 <div style={{ backgroundImage: 'url(' + character.url + ')', width: "50px", height: "50px", borderRadius: "2rem" }} className='img'></div>
                                 <div className='d-flex flex-column'>
                                     <p>{character.name}</p>
-                                    <p style={{color: "grey"}}> Hey</p>
+                                    <p style={{ color: "grey" }}> Hey</p>
                                 </div>
                             </div>
                         </div>

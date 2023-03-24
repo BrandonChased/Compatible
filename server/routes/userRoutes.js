@@ -1,12 +1,13 @@
 const express = require("express");
 const UserRouter = express.Router();
 
-const { addMatch, create, findOne, findAll, login, updateOne, deleteOne } = require("../controllers/userControllers")
+const { addMatch, create, findOne, findAll, login, preUpdateUser, updateOne, deleteOne } = require("../controllers/userControllers")
 
 UserRouter
     .route('/')
     .get(findAll)
-    .post(create);
+    .post(create)
+    .put(preUpdateUser)
 
 UserRouter
     .route('/login')

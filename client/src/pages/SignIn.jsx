@@ -53,12 +53,13 @@ function SignIn() {
                     setCookie("email", res.data.email)
                     setCookie("UserId", res.data.userId)
                     setCookie("AuthToken", res.data.token)
+                    setCookie("genderPreference", res.data.genderPreference)
                     setUser({})
                     navigate("/dashboard")
+                    window.location.reload()
                 })
                 .catch(err => {
-                    setErrors(err.response.data.error)
-                    console.log(err)
+                    setErrors(err.response.data)
                 })
         } else {
             setErrors(validationErrors);
@@ -97,7 +98,14 @@ function SignIn() {
                         required
                     />
                 </div>
-                <button className="btn btn-primary my-4">Sign In</button>
+                <div>
+                    <button className="btn btn-primary my-4">Sign In</button>
+                </div>
+                {errors?.message &&
+                    <div className='text-danger h5'>
+                        {errors.message}
+                    </div>
+                }
             </form>
             <div className="mt-4">
                 <p className="h4 text-center" style={{ color: "black" }}>

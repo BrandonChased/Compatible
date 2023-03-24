@@ -2,38 +2,71 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import BottomNav from "../components/BottomNav";
 import Nav from "../components/Nav";
-import { useCookies} from "react-cookie"
+import { useCookies } from "react-cookie"
+import TinderCard from 'react-tinder-card'
+import "../App.css"
 
 function DashBoard() {
+    const [user, setUser] = useState({})
     const [users, setUsers] = useState([]);
     const [cookies, setCookie, removeCookie] = useCookies(["user"])
+    const [lastDirection, setLastDirection] = useState()
 
-    useEffect(() => {
-        axios
-            .get("http://localhost:8000/api/users")
-            .then((res) => {
-                console.log(res.data);
-                setUsers(res.data);
-            })
-            .catch((err) => console.log(err));
-    }, []);
-
-    const handleLike = async (matchedUserId) => {
+    const getUser = async () => {
         try {
-            await axios.put("http://localhost:8000/api/users/addmatch", {
-                userId: cookies.UserId,
-                matchedUserId
-            })
+            const response = await axios.get(`http://localhost:8000/api/users/${cookies.UserId}`)
+            console.log(response.data)
+            setUser(response.data)
         } catch (error) {
             console.log(error)
         }
-        console.log(cookies.UserId)
-
     }
 
-    const handleDislike = () => {
+    useEffect(() => {
+        getUser()
+        getusers()
+    }, [])
 
+    const getusers = async () => {
+        try {
+            console.log(cookies.genderPreference)
+            const response = await axios.get("http://localhost:8000/api/users", {
+                params: { gender: cookies.genderPreference }
+            })
+            console.log(response.data)
+            setUsers(response.data)
+
+        } catch (err) {
+            console.log(err)
+        }
     }
+
+    const swiped = (direction, swipedUserId) => {
+        if (direction === 'right') {
+            updateMatches(swipedUserId)
+        }
+        setLastDirection(direction)
+    }
+
+    const updateMatches = async (matchedUserId) => {
+        try {
+            await axios.put('http://localhost:8000/addmatch', {
+                userId: cookies.userId,
+                matchedUserId
+            })
+            getUser()
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const outOfFrame = (name) => {
+        console.log(name + ' left the screen!')
+    }
+
+    // const matchedUserIds = user?.matches.map(({_id}) => _id).concat(cookies.userId)
+
+    // const filteredusers = users?.filter(user => !matchedUserIds.includes(user._id))
 
     return (
         <div
@@ -41,30 +74,29 @@ function DashBoard() {
             style={{ minHeight: "100vh" }}
         >
             <Nav />
-            <div className="mh-100 card-body">
-                {users ? users.map((character) => (
-                    <div key={character._id}>
-                        <div
-                            style={{ backgroundImage: "url(" + character.url + ")" }}
-                            className="card profile-card"
-                        >
-                            <h3>{character.name}</h3>
-                            <div className="d-flex btns">
-                                <i
-                                    onClick={() => handleLike(character._id)}
-                                    className="fa-regular fa-heart fa-3x"
-                                    style={{ color: "limegreen" }}
-                                ></i>
-                                <i
-                                    onClick={handleDislike}
-                                    className="fa-regular fa-circle-xmark fa-3x"
-                                    style={{ color: "red" }}
-                                ></i>
+            {user &&
+                <div className="dashboard">
+                    <div className="swipe-container">
+                        <div className="card-container">
+                            {users && users?.map((user) =>
+                                <TinderCard
+                                    className="swipe"
+                                    key={user._id}
+                                    onSwipe={(dir) => swiped(dir, user._id)}
+                                    onCardLeftScreen={() => outOfFrame(user.name)}>
+                                    <div
+                                        style={{ backgroundImage: "url(" + user.images[0] + ")" }}
+                                        className="c-card">
+                                        <h3>{user.name}</h3>
+                                    </div>
+                                </TinderCard>
+                            )}
+                            <div className="swipe-info">
+                                {lastDirection ? <p>You swiped {lastDirection}</p> : <p />}
                             </div>
                         </div>
                     </div>
-                )) : <p className="h1">"No More Users in your area"</p>}
-            </div>
+                </div>}
             <BottomNav />
         </div>
     );

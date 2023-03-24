@@ -62,6 +62,17 @@ const login = async (req, res) => {
     }
 }
 
+const preUpdateUser = async (req, res) => {
+    try {
+        // Update the user with the new information
+        const updatedUser = await User.findByIdAndUpdate(req.body.id, req.body, { new: true, runValidators: true });
+        res.status(200).json(updatedUser);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+}
+
 const addMatch = async (req, res) => {
     const { userId, matchedUserId } = req.body;
 
@@ -84,10 +95,22 @@ const findOne = (req, res) => {
         .catch((err) => res.status(400).json(err));
 };
 
-const findAll = (req, res) => {
-    User.find()
-        .then((user) => res.status(200).json(user))
-        .catch((err) => res.status(400).json(err));
+const findAll = async (req, res) => {
+    let gender = req.query.gender
+
+    if(gender == "Men") {
+        gender = "Man"
+    }else if(gender =="Women"){
+        gender = "Woman"
+    }
+
+    try {
+        const query = { gender: gender }
+        const users = await User.find(query)
+        res.status(200).json(users)
+    } catch (error) {
+        res.status(400).json({...error})
+    }
 };
 
 const updateOne = (req, res) => {
@@ -104,4 +127,4 @@ const deleteOne = (req, res) => {
         .catch((err) => res.status(400).json(err));
 };
 
-module.exports = { addMatch, create, findOne, findAll, login, updateOne, deleteOne };
+module.exports = { addMatch, create, findOne, findAll, login, preUpdateUser, updateOne, deleteOne };

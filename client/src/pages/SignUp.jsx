@@ -49,6 +49,7 @@ function SignUp() {
                     setCookie("AuthToken", res.data.token)
                     setUser({})
                     navigate("/onboarding")
+                    window.location.reload()
                 })
                 .catch(err => {
                     setErrors(err.response.data.error)

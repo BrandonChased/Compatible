@@ -37,19 +37,18 @@ const UserSchema = new mongoose.Schema({
     gender: {
         type: String,
         required: false,
-        enum: ['male', 'female'],
+        enum: ['Man', 'Woman'],
     },
-    genderPreferences: {
-        type: [String],
+    genderPreference: {
+        type: String,
         required: false,
-        enum: ['male', 'female'],
+        enum: ['Men', 'Women'],
     },
     images: {
         type: [String],
         required: false,
     },
-    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    matches: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    matches: [],
 }, { timestamps: true });
 
 const User = mongoose.model('Users', UserSchema)

@@ -4,7 +4,7 @@ import Nav from '../components/Nav'
 
 const db = [
   {
-    name: 'Richard Hendricks',
+    name: 'Richard',
     url: 'https://imgur.com/oPj4A8u.jpg'
   },
   {
