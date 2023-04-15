@@ -20,7 +20,7 @@
       <img style="width: 200px;" src="https://imgur.com/i4QOQvJ" alt="onboarding"/>
       <img style="width: 200px;" src="https://imgur.com/v0ZLvoT" alt="likes"/>
       <img style="width: 200px;" src="https://imgur.com/fOwGpqi" alt=""matches/>
-      <img style="width: 200px;" src="https://imgur.com/5A08E66" alt="settings"/>
+      <img style="width: 200px;" src="https://i.imgur.com/5A08E66.jpg" alt="settings"/>
     </div>
     <h2>Tech-Stack</h2>
     <div>
