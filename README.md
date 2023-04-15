@@ -16,10 +16,10 @@
   <div>
     <h2>Some Images From my site !</h2>
     <div>
-      <img style="width: 200px;" src="https://imgur.com/1Zl0dTg" alt="login"/>
-      <img style="width: 200px;" src="https://imgur.com/i4QOQvJ" alt="onboarding"/>
-      <img style="width: 200px;" src="https://imgur.com/v0ZLvoT" alt="likes"/>
-      <img style="width: 200px;" src="https://imgur.com/fOwGpqi" alt=""matches/>
+      <img style="width: 200px;" src="https://i.imgur.com/1Zl0dTg.jpg" alt="login"/>
+      <img style="width: 200px;" src="https://i.imgur.com/i4QOQvJ.jpg" alt="onboarding"/>
+      <img style="width: 200px;" src="https://i.imgur.com/v0ZLvoT.jpg" alt="likes"/>
+      <img style="width: 200px;" src="https://i.imgur.com/fOwGpqi.jpg" alt=""matches/>
       <img style="width: 200px;" src="https://i.imgur.com/5A08E66.jpg" alt="settings"/>
     </div>
     <h2>Tech-Stack</h2>
