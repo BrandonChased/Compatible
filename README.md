@@ -16,10 +16,11 @@
   <div>
     <h2>Some Images From my site !</h2>
     <div>
-      <img style="width: 200px;" src="https://media.licdn.com/dms/image/C562DAQGjhcJTSUUkHw/profile-treasury-image-shrink_1920_1920/0/1678327938652?e=1680141600&v=beta&t=InnjeYD_BhTJ1INPs2Z9twobUirKc-lYOjl9VEVuW-0" alt="login"/>
-      <img style="width: 200px;" src="https://media.licdn.com/dms/image/C562DAQGV50dC5-LB3Q/profile-treasury-image-shrink_1920_1920/0/1678327915211?e=1680141600&v=beta&t=rtCR5Zm45VGO8XsmEGzslaABlGs_R-Y9USCB-bzQ2dc" alt="likes"/>
-      <img style="width: 200px;" src="https://media.licdn.com/dms/image/C562DAQE-fHgusxbfXA/profile-treasury-image-shrink_1920_1920/0/1678327887794?e=1680141600&v=beta&t=ClXJf9G6z8ahg0HbkRndXMyKbZBrrzWumePu4bjUlLM" alt=""matches/>
-      <img style="width: 200px;" src="https://media.licdn.com/dms/image/C562DAQE4gFo9YEtFow/profile-treasury-image-shrink_1920_1920/0/1678327864669?e=1680141600&v=beta&t=rwbjUx4sQb0xwZ-9EKRKk8SLmewwdX-RP0Tm3oZEWyo" alt="settings"/>
+      <img style="width: 200px;" src="https://i.imgur.com/1Zl0dTg.jpg" alt="login"/>
+      <img style="width: 200px;" src="https://i.imgur.com/i4QOQvJ.jpg" alt="onboarding"/>
+      <img style="width: 200px;" src="https://i.imgur.com/v0ZLvoT.jpg" alt="likes"/>
+      <img style="width: 200px;" src="https://i.imgur.com/fOwGpqi.jpg" alt=""matches/>
+      <img style="width: 200px;" src="https://i.imgur.com/5A08E66.jpg" alt="settings"/>
     </div>
     <h2>Tech-Stack</h2>
     <div>
