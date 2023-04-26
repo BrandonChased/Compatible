@@ -55,7 +55,7 @@ const login = async (req, res) => {
         });
 
         // Return JWT to client
-        res.status(200).json({ token, userId: user._id, email: user.email });
+        res.status(200).json({ token, userId: user._id, email: user.email, genderPreference: user.genderPreference });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Server Error' });
@@ -75,17 +75,18 @@ const preUpdateUser = async (req, res) => {
 
 const addMatch = async (req, res) => {
     const { userId, matchedUserId } = req.body;
-
     try {
-        const query = { users_id: userId };
-        const updatdDocument = {
-            $push: { matches: { users_id: matchedUserId } },
+        const query = { _id: userId };
+        const updatedDocument = {
+            $push: { matches: { user_id: matchedUserId } },
         };
-        const user = await User.updateOne(query, updatdDocument);
+        const user = await User.updateOne(query, updatedDocument);
         res.send(user);
-    } catch {
-        res.send({ status: "error" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ status: "error" });
     }
+
 };
 
 const findOne = (req, res) => {
@@ -98,9 +99,9 @@ const findOne = (req, res) => {
 const findAll = async (req, res) => {
     let gender = req.query.gender
 
-    if(gender == "Men") {
+    if (gender == "Men") {
         gender = "Man"
-    }else if(gender =="Women"){
+    } else if (gender == "Women") {
         gender = "Woman"
     }
 
@@ -109,7 +110,7 @@ const findAll = async (req, res) => {
         const users = await User.find(query)
         res.status(200).json(users)
     } catch (error) {
-        res.status(400).json({...error})
+        res.status(400).json({ ...error })
     }
 };
 

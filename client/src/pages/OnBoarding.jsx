@@ -103,7 +103,7 @@ function OnBoarding() {
                 },
                 id: user._id,
                 name: user.name,
-                age: user.age,
+                age: user.birthdate,
                 gender: user.gender,
                 genderPreference: user.genderPreference,
                 images: images
@@ -164,7 +164,7 @@ function OnBoarding() {
                         <input onChange={handleChange} type="date" className='form-control px-4' name='birthdate' />
                     </div>
                     <div className='form-group'>
-                        <label className='text-left d-flex'>I identify as a...</label>
+                        <label className='text-left d-flex'>I am a...</label>
                         <div className='d-flex justify-content-around'>
                             <input readOnly onClick={handleGenderSelected} className={`btn form-control text-center ${genderSelected ? "btn-primary" : "btn-light"}`} style={{ width: "35%" }} name="gender" value="Man" />
                             <input readOnly onClick={handleGenderSelected} className={`btn form-control text-center ${genderSelected ? "btn-light" : "btn-primary"}`} style={{ width: "35%" }} name="gender" value="Woman" />

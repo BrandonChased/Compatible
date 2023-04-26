@@ -174,27 +174,33 @@ input[type="file"] {
   margin-bottom: 0;
 }
 
-.dashboard {
+/* .dashboard {
   width: fit-content;
   margin: 0 auto;
+} */
+
+.swipe-container {
+  width: 100%; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: calc(100vh - 130px); /* Subtracting the nav heights */
 }
 
-.dashboard .swipe-container {
+.dashboard .card-container {
   width: 100%;
-  /* display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; */
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
-/* .swipe {
-    position: absolute;
-} */
-
-/* .dashboard .card-container {
-    width: 400px;
-    height: 650px;
-} */
+.swipe {
+  position: relative;
+}
 
 .c-card {
   width: 300px;
@@ -203,13 +209,30 @@ input[type="file"] {
   border: 2px solid black;
   background-size: cover;
   background-position: center;
-}
-
-.card h3 {
-  margin-top: 0;
+  color: black;
+  position: absolute;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* move the element back by half its width and height */
 }
 
 .dashboard .swipe-info {
+  /* position: absolute; */
   bottom: 0;
   padding: 10px;
+}
+
+.dashboard .nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.dashboard .bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1;
 }

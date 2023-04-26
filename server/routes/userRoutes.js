@@ -10,6 +10,10 @@ UserRouter
     .put(preUpdateUser)
 
 UserRouter
+    .route("/addmatch")
+    .put(addMatch)
+    
+UserRouter
     .route('/login')
     .post(login)
 
@@ -19,8 +23,5 @@ UserRouter
     .put(updateOne)
     .delete(deleteOne);
 
-UserRouter
-    .route("/addmatch")
-    .put(addMatch)
 
 module.exports = UserRouter;

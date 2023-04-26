@@ -56,6 +56,7 @@ function SignIn() {
                     setCookie("genderPreference", res.data.genderPreference)
                     setUser({})
                     navigate("/dashboard")
+                    console.log(res.data)
                     window.location.reload()
                 })
                 .catch(err => {
